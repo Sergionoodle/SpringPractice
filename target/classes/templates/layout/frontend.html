@@ -1,0 +1,23 @@
+<div th:fragment="scripts">
+	<!-- El contenido de aqui se repetira donde añadamos el fragmento
+	vendría a ser como fragmentar los twig de symfony en este caso
+	lo hacemos con el js-->
+
+	<script type="text/javascript" th:src="@{/js/funciones.js}"></script>
+
+</div>
+
+<div th:fragment="footer">
+	<footer>
+		<div class="container">
+			<ul class="social">
+				<li><a href="#">Facebook</a></li>
+				<li><a href="#">Twitter</a></li>
+				<li><a href="#">Instagram</a></li>
+			</ul>
+			<div class="copyright">
+				&copy; 2024 Mi Sitio Web. Todos los derechos reservados.
+			</div>
+		</div>
+	</footer>
+</div>

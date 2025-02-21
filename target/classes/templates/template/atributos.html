@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+</head>
+
+<body>
+
+	<h1 th:text="'numero -> '+${num1} + 'numero -> '+${num2}+' Suman'"></h1>
+	<h1 th:text="${num1} + ${num2}"></h1>
+	<h1 th:if="${num1>10}" th:text="'Num 1 es mayor que 10'"></h1>
+
+	<h1 th:text="${num1==10 ? 'SI':'NO'}"></h1>
+
+	<div th:switch="${num1}">
+		<p th:case="10" th:text="'Es 10'"></p>
+		<p th:case="12" th:text="'Es 12'"></p>
+		<p th:case="9" th:text="'Es 9'"></p>
+	</div>
+
+	<h2>Lista de array de paises donde quiero vivir</h2>
+
+	<hr>
+	<ul>
+		<li th:each="pais:${paises}" th:text="${paisStat.index} + '-' +${pais}"></li>
+	</ul>
+	<hr>
+	<h3 th:text="${cifra}"></h3>
+	<h3 th:text="'$'+ ${#numbers.formatDecimal(cifra, 0, 'POINT', 0, 'POINT')}"></h3>
+	<hr>
+	<h3 th:text="${fecha}"></h3>
+	<h3 th:text="${#calendars.format(fecha, 'dd-mm-yyyy')}"></h3>
+
+</body>
+
+</html>

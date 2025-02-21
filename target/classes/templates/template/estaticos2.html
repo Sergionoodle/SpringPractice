@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<div th:replace="layout/front2 :: nav"></div>
+
+	<h1>Recursos estaticos / con fragments</h1>
+
+
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>
