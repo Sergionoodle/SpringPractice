@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<div th:replace="layout/front2 :: nav"></div>
+
+	<h1>LINKS</h1>
+
+
+	<footer th:replace="layout/front2 :: footer"></footer>
+	<div th:replace="layout/front2 :: scripts"></div>
+</body>
+
+</html>
