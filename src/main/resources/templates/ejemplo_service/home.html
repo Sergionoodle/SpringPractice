@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mi Página de Inicio</title>
+	<style>
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			font-family: 'Roboto', sans-serif;
+		}
+
+		body {
+			line-height: 1.6;
+		}
+
+		.container {
+			width: 90%;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.header {
+			background: #333;
+			color: #fff;
+			padding: 1em 0;
+		}
+
+		.header h1 {
+			text-align: center;
+		}
+
+		.nav ul {
+			list-style: none;
+			display: flex;
+			justify-content: center;
+		}
+
+		.nav ul li {
+			margin: 0 1em;
+		}
+
+		.nav ul li a {
+			color: #fff;
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		.hero {
+			background: url('hero.jpg') no-repeat center center/cover;
+			color: #fff;
+			padding: 5em 0;
+			text-align: center;
+		}
+
+		.hero h2 {
+			font-size: 2.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.hero p {
+			font-size: 1.2em;
+			margin-bottom: 1em;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 0.75em 1.5em;
+			background: #007BFF;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 5px;
+		}
+
+		.btn:hover {
+			background: #0056b3;
+		}
+
+		.services,
+		.about,
+		.contact {
+			padding: 2em 0;
+		}
+
+		.services h2,
+		.about h2,
+		.contact h2 {
+			text-align: center;
+			margin-bottom: 1em;
+		}
+
+		.service-item {
+			background: #f4f4f4;
+			padding: 1em;
+			margin-bottom: 1em;
+			border-radius: 5px;
+		}
+
+		.contact form {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+		}
+
+		.contact label {
+			font-weight: bold;
+		}
+
+		.contact input,
+		.contact textarea {
+			padding: 0.5em;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		.footer {
+			background: #333;
+			color: #fff;
+			text-align: center;
+			padding: 1em 0;
+		}
+
+		.footer p {
+			margin: 0;
+		}
+	</style>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<header class="header">
+		<div class="container">
+			<h1 th:text="'Pagina inicio thymeleaf'"></h1>
+			<nav class="nav">
+				<ul>
+					<li><a href="#inicio">Inicio</a></li>
+					<li><a href="#servicios">Servicios</a></li>
+					<li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+					<li><a href="#contacto">Contacto</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<h1>Ejemplo Services</h1>
+	
+	<h3 th:text="${saludo}"></h3>
+
+	<footer class="footer">
+		<div class="container">
+			<p>&copy; 2024 Mi Página de Inicio. Todos los derechos reservados.</p>
+		</div>
+	</footer>
+</body>
+
+</html>
