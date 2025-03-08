@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+</head>
+
+<body>
+    <div th:replace="layout/front2 :: container"></div>
+    <main class="container">
+        <h1>VALIDACIÓN</h1>
+        <!-- Mostrar datos del usuario -->
+        <div>
+            <p><strong>UserName:</strong> <span th:text="${user.user}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong>Password:</strong> <span th:text="${user.pass}"></span></p>
+        </div>
+    </main>
+    <br>
+    <footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>

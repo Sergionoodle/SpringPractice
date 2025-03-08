@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	
+	<!-- Recuerda que como usamos thymeleaf tenemos que poner th
+	y luego ya ponemos la ruta a su estilo-->
+	<link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+	<h1>Recursos estaticos</h1>
+	
+	<p>Recursos graficos, cuando se generan rutas se usa una @ no el $</p>
+	<img id="imagen" th:src="@{/images/gtrsad.jpg}"/>
+	
+	<!-- Ahora para añadir los css se crea la carpeta en static
+	-->
+	
+	<!-- Añadimos los fragmentos que queremos usar-->
+	<div th:replace="layout/frontend :: scripts"></div>
+	<div th:replace="layout/frontend :: footer"></div>
+</body>
+
+</html>

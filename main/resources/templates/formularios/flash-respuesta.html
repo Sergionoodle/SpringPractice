@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<main class="container">
+
+		<div th:if="${mensaje!=null}" th:class="'alert alert-'+${clase}+' alert-dismissible fade show'">
+		    <span th:text="${mensaje}"></span>
+		    <button th:if="${mensaje!=null}" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</main>
+	<br>
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>

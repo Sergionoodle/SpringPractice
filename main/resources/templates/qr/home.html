@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<h1>Qr</h1>
+
+	<a th:href="@{/qr/generate}">Crear qr</a>
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>

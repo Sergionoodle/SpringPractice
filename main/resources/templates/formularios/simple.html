@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<main class="container">
+		<h1>SIMPLE</h1>
+		<!-- FORM ENVIAR VIA POST -->
+		<form name="form" th:action="@{/formularios/simple}" method="POST">
+			
+			<!-- Input usuario -->
+			<div class="form-group">
+				<label>UserName</label>
+				<input type="text" name="user" id="user" class="form-control">
+			</div>
+			
+			<!-- Input email -->
+			<div class="form-group">
+				<label>Email</label>
+				<input type="text" name="email" id="email" class="form-control">
+			</div>
+			
+			<!-- Input pass -->
+			<div class="form-group">
+				<label>Password</label>
+				<input type="text" name="pass" id="pass" class="form-control">
+			</div>
+			
+			<hr>
+			
+			<!-- BOTON -->
+			<a href="javascript:void(0);" class="btn btn-info" onclick="document.form.submit();">ENVIAR</a>
+		</form>
+	</main>
+	<br>
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>
