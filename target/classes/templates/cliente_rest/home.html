@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<h1>Cliente Rest</h1>
+
+	<table class="table table-bordered table-striped table-hover">
+	    <thead>
+	        <tr>
+	            <th>ID</th>
+	            <th>Categoría</th>
+	            <th>Nombre</th>
+	            <th>Precio</th>
+	            <th>Descripción</th>
+	            <th>Foto</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+			<tr th:each="dato : ${datos}">
+			    <td th:text="${dato.id}"></td>
+			    <td th:text="${dato.categoria}"></td>
+			    <td th:text="${dato.nombre}"></td>
+			    <td th:text="${dato.precio}"></td>
+			    <td th:text="${dato.descripcion}"></td>
+			    <td><img th:src="${dato.foto}" alt="Imagen" width="50"></td>
+			</tr>
+	    </tbody>
+	</table>
+
+	
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>
