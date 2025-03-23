@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import modelos.ProductosModel;
-import repositorios.IProductosRepository;
+import cl.tamila.modelos.ProductosModel;
+import cl.tamila.repositorios.IProductosRepository;
 
 @Service
 @Primary

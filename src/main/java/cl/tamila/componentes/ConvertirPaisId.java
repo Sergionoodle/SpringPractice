@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.databind.util.Converter;
 
-import modelos.PaisModel;
+import cl.tamila.modelos.PaisModel;
 
 //Esto nos ayuda a que no se nos lie el atributo que quiere ser un
 //String

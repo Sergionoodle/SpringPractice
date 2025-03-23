@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})">
+
+</head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<h1>JPA MySql</h1>
+
+	<ul>
+		<li>
+			<a th:href="@{/jpa/categorias}">Categorías</a>
+		</li>
+	</ul>
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>

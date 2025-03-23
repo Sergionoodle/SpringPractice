@@ -1,6 +1,6 @@
 package cl.tamila.componentes;
 
-import modelos.InteresesModel;
+import cl.tamila.modelos.InteresesModel;
 
 public class ConvertirInteresId implements org.springframework.core.convert.converter.Converter<String, InteresesModel>{
 

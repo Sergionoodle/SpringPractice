@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cl.tamila.modelos.InteresesModel;
+import cl.tamila.modelos.PaisModel;
+import cl.tamila.modelos.Usuario2Model;
+import cl.tamila.modelos.Usuario3Model;
+import cl.tamila.modelos.UsuarioCheckboxModel;
+import cl.tamila.modelos.UsuarioModel;
+import cl.tamila.modelos.UsuarioUploadModel;
 import cl.tamila.utils.Utils;
 import jakarta.validation.Valid;
-import modelos.InteresesModel;
-import modelos.PaisModel;
-import modelos.Usuario2Model;
-import modelos.Usuario3Model;
-import modelos.UsuarioCheckboxModel;
-import modelos.UsuarioModel;
-import modelos.UsuarioUploadModel;
 
 @Controller
 @RequestMapping("/formularios")
