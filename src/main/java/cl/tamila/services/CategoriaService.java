@@ -1,6 +1,7 @@
 package cl.tamila.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -34,5 +35,21 @@ public class CategoriaService {
 			return true;
 		}
 	}
-
+	
+	//Metodo para listar por id
+	public CategoriaModel listarPorId(Integer id) {
+		Optional<CategoriaModel> optional = this.repository.findById(id);
+		
+		//Si existe el registro
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		
+		return null;
+	}
+	
+	//Metodo para eliminar, de ejecucion (void)
+	public void eliminarRegistro(Integer id) {
+		this.repository.deleteById(id);
+	}
 }

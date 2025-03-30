@@ -25,8 +25,8 @@
 	            <td th:text="${categoria.nombre}"></td>
 	            <td th:text="${categoria.slug}"></td>
 	            <td>
-	                <a th:href="@{/categorias/editar/{id}(id=${categoria.id})}" class="btn btn-warning">Editar</a>
-	                <a th:href="@{/categorias/eliminar/{id}(id=${categoria.id})}" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar?')">Eliminar</a>
+	                <a th:href="@{/jpa/categorias/editar/}+${categoria.id}" class="btn btn-warning">Editar</a>
+	                <a th:href="@{/jpa/categorias/delete/}+${categoria.id}" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar?')">Eliminar</a>
 				</td>
 	        </tr>
 	    </tbody>

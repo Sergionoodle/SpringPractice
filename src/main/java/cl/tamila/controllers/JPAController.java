@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.tamila.modelos.CategoriaModel;
 import cl.tamila.services.CategoriaService;
@@ -36,6 +38,7 @@ public class JPAController {
 		return "jpa/categorias";
 	}
 
+	// Creamos el metodo de añadir categorias
 	@GetMapping("/categorias/add")
 	public String categorias_add(Model model) {
 		model.addAttribute("categoria", new CategoriaModel());
@@ -60,15 +63,51 @@ public class JPAController {
 		return "redirect:/jpa/categorias";
 	}
 
-	@GetMapping("/categorias/delete")
-	public String categorias_delete(Model model) {
-		model.addAttribute("datos", this.categoriaService.listar());
-		return "jpa/categorias_Delete";
+	// Creamos el metodo para editar las categorias
+	@GetMapping("/categorias/editar/{id}")
+	public String categorias_edit(@PathVariable("id") Integer id, Model model) {
+		CategoriaModel categoria = this.categoriaService.listarPorId(id);
+		model.addAttribute("categorias", categoria);
+
+		return "jpa/categorias_edit";
 	}
 
-	@GetMapping("/categorias/edit")
-	public String categorias_edit(Model model) {
-		model.addAttribute("datos", this.categoriaService.listar());
-		return "jpa/categorias_Edit";
+	@PostMapping("/categorias/editar/{id}")
+	public String categorias_edit_post(@Valid @ModelAttribute("categorias") CategoriaModel categoria,
+			BindingResult result, @PathVariable("id") int id, RedirectAttributes flash, Model model) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("categorias", categoria);
+			return "jpa/categorias_edit";
+		}
+
+		// Verificamos si la categoría existe antes de actualizarla
+		CategoriaModel existente = categoriaService.listarPorId(id);
+		if (existente == null) {
+			flash.addFlashAttribute("error", "La categoría no existe.");
+			return "redirect:/jpa/categorias";
+		}
+
+		// Actualizamos los valores de la categoría existente
+		existente.setNombre(categoria.getNombre());
+		existente.setSlug(Utils.getSlug(categoria.getNombre()));
+
+		// Guardamos los cambios
+		categoriaService.guardar(existente);
+
+		flash.addFlashAttribute("success", "Categoría actualizada correctamente.");
+		return "redirect:/jpa/categorias";
 	}
+
+	@GetMapping("/categorias/delete/{id}")
+	public String categorias_delete(@PathVariable("id") Integer id, Model model) {
+		try {
+			this.categoriaService.eliminarRegistro(id);
+			return "redirect:/jpa/categorias";
+		} catch (Exception e) {
+			System.out.println("HA FALLADO!!!");
+			return "redirect:/jpa/categorias"; 
+		}
+	}
+
 }
