@@ -13,7 +13,7 @@ import cl.tamila.repositorios.IProductosRepository;
 @Primary
 public class PreciosService {
 
-	
+	@Autowired
 	private IProductosRepository repository;
 	
 	public List<ProductosModel> listar() {

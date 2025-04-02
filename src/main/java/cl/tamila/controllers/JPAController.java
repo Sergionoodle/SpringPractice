@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.tamila.modelos.CategoriaModel;
 import cl.tamila.services.CategoriaService;
+import cl.tamila.services.PreciosService;
 import cl.tamila.utils.Utils;
 import jakarta.validation.Valid;
 
@@ -25,6 +26,8 @@ public class JPAController {
 	// Las inyecciones van por aqui mas ordenado
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	private PreciosService productService;
 
 	@GetMapping("")
 	public String home(Model model) {
@@ -109,5 +112,11 @@ public class JPAController {
 			return "redirect:/jpa/categorias"; 
 		}
 	}
-
+	
+	// Vamos a listar las categorias
+	@GetMapping("/productos")
+	public String productos(Model model) {
+		model.addAttribute("datos", this.productService.listar());
+		return "jpa/productos";
+	}
 }
