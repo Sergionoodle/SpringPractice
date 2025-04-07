@@ -8,4 +8,6 @@ import cl.tamila.modelos.ProductosModel;
 @Repository
 public interface IProductosRepository extends JpaRepository<ProductosModel, Integer>{
 
+	public boolean existsBySlug(String slug);
+
 }

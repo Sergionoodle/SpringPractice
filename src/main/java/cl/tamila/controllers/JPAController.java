@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.tamila.modelos.CategoriaModel;
+import cl.tamila.modelos.ProductosModel;
 import cl.tamila.services.CategoriaService;
 import cl.tamila.services.PreciosService;
 import cl.tamila.utils.Utils;
@@ -119,4 +120,37 @@ public class JPAController {
 		model.addAttribute("datos", this.productService.listar());
 		return "jpa/productos";
 	}
+	
+
+	// Creamos el metodo de añadir categorias
+	@GetMapping("/productos/add")
+	public String productos_add(Model model) {
+		model.addAttribute("productos", new ProductosModel());
+		model.addAttribute("categorias", this.categoriaService.listar());
+		return "jpa/productos_add";
+	}
+	
+	@PostMapping("/productos/add")
+	public String add_productos_post(@Valid @ModelAttribute("productos") ProductosModel productos, BindingResult result,
+	                                  Model model) {
+	    if (result.hasErrors()) {
+	        return "jpa/productos_add";
+	    }
+
+	    if (productos.getCategoriaId() == null || productos.getCategoriaId().getId() == null) {
+	        model.addAttribute("errorCategoria", "Debe seleccionar una categoría.");
+	        return "jpa/productos_add";
+	    }
+
+	    productos.setSlug(Utils.getSlug(productos.getNombre()));
+
+	    if (!productService.buscarPorSlug(productos.getSlug())) {
+	        model.addAttribute("errorSlug", "El slug ya existe, prueba con otro nombre.");
+	        return "jpa/productos_add";
+	    }
+
+	    productService.guardar(productos);
+	    return "redirect:/jpa/productos";
+	}
+
 }
