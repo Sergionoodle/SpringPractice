@@ -30,7 +30,7 @@
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio:</label>
                     <input type="number" id="precio" th:field="*{precio}" class="form-control" placeholder="Ingrese el precio">
-                    <small class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+					<small class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
                 </div>
 
                 <!-- Foto -->
@@ -42,17 +42,11 @@
 
                 <!-- Categoría (Select) -->
                 <div class="mb-3">
-                    <label for="categoriaId" class="form-label">Categoría:</label>
-                    <select id="categoriaId" th:field="*{categoriaId}" class="form-select">
-                        <option value="" disabled th:selected="${productos.categoriaId == null}">Seleccione una categoría</option>
-                        <option th:each="cat : ${categorias}" 
-                                th:value="${cat.id}" 
-                                th:text="${cat.nombre}" 
-                                th:selected="${cat.id == productos.categoriaId}">
-                        </option>
-                    </select>
-					<small class="text-danger" th:if="${#fields.hasErrors('categoriaId')}" th:errors="*{categoriaId}"></small>
-                </div>
+ 					<label>Categoría</label>
+					<select th:field="*{categoriaId}" class="form-control">
+						<option th:each="categoria:${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+					</select>
+				</div>
 
                 <!-- Error slug repetido -->
                 <div class="mb-3 text-danger" th:if="${errorSlug}" th:text="${errorSlug}"></div>

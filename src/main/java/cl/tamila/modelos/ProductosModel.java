@@ -26,7 +26,6 @@ public class ProductosModel {
 	@NotEmpty(message = "Validacion, esto esta vacío")
 	private String nombre;
 	
-	@NotEmpty(message = "Validacion, esto esta vacío")
 	private String slug;
 	
 	@NotEmpty(message = "Validacion, esto esta vacío")

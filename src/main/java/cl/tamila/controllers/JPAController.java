@@ -131,26 +131,31 @@ public class JPAController {
 	}
 	
 	@PostMapping("/productos/add")
-	public String add_productos_post(@Valid @ModelAttribute("productos") ProductosModel productos, BindingResult result,
-	                                  Model model) {
-	    if (result.hasErrors()) {
-	        return "jpa/productos_add";
+	public String add_productos_post(@Valid @ModelAttribute("productos") ProductosModel productos,
+	                                 BindingResult result, Model model) {
+
+	    if (productos.getPrecio() < 0) {
+	        result.rejectValue("precio", "error.precio", "El precio no puede ser negativo.");
 	    }
 
 	    if (productos.getCategoriaId() == null || productos.getCategoriaId().getId() == null) {
-	        model.addAttribute("errorCategoria", "Debe seleccionar una categoría.");
-	        return "jpa/productos_add";
+	        result.rejectValue("categoriaId", "error.categoriaId", "Debe seleccionar una categoría.");
 	    }
 
 	    productos.setSlug(Utils.getSlug(productos.getNombre()));
 
 	    if (!productService.buscarPorSlug(productos.getSlug())) {
-	        model.addAttribute("errorSlug", "El slug ya existe, prueba con otro nombre.");
+	        model.addAttribute("errorSlug", "El nombre del producto ya existe.");
+	    }
+
+	    if (result.hasErrors() || model.containsAttribute("errorSlug")) {
+	    	model.addAttribute("categorias", this.categoriaService.listar());
 	        return "jpa/productos_add";
 	    }
 
 	    productService.guardar(productos);
 	    return "redirect:/jpa/productos";
 	}
+
 
 }
