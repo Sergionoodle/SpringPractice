@@ -110,17 +110,16 @@ public class JPAController {
 			return "redirect:/jpa/categorias";
 		} catch (Exception e) {
 			System.out.println("HA FALLADO!!!");
-			return "redirect:/jpa/categorias"; 
+			return "redirect:/jpa/categorias";
 		}
 	}
-	
+
 	// Vamos a listar las categorias
 	@GetMapping("/productos")
 	public String productos(Model model) {
 		model.addAttribute("datos", this.productService.listar());
 		return "jpa/productos";
 	}
-	
 
 	// Creamos el metodo de añadir categorias
 	@GetMapping("/productos/add")
@@ -129,33 +128,88 @@ public class JPAController {
 		model.addAttribute("categorias", this.categoriaService.listar());
 		return "jpa/productos_add";
 	}
-	
+
 	@PostMapping("/productos/add")
-	public String add_productos_post(@Valid @ModelAttribute("productos") ProductosModel productos,
-	                                 BindingResult result, Model model) {
+	public String add_productos_post(@Valid @ModelAttribute("productos") ProductosModel productos, BindingResult result,
+			Model model) {
 
-	    if (productos.getPrecio() < 0) {
-	        result.rejectValue("precio", "error.precio", "El precio no puede ser negativo.");
-	    }
+		if (productos.getPrecio() < 0) {
+			result.rejectValue("precio", "error.precio", "El precio no puede ser negativo.");
+		}
 
-	    if (productos.getCategoriaId() == null || productos.getCategoriaId().getId() == null) {
-	        result.rejectValue("categoriaId", "error.categoriaId", "Debe seleccionar una categoría.");
-	    }
+		if (productos.getCategoriaId() == null || productos.getCategoriaId().getId() == null) {
+			result.rejectValue("categoriaId", "error.categoriaId", "Debe seleccionar una categoría.");
+		}
 
-	    productos.setSlug(Utils.getSlug(productos.getNombre()));
+		productos.setSlug(Utils.getSlug(productos.getNombre()));
 
-	    if (!productService.buscarPorSlug(productos.getSlug())) {
-	        model.addAttribute("errorSlug", "El nombre del producto ya existe.");
-	    }
+		if (!productService.buscarPorSlug(productos.getSlug())) {
+			model.addAttribute("errorSlug", "El nombre del producto ya existe.");
+		}
 
-	    if (result.hasErrors() || model.containsAttribute("errorSlug")) {
-	    	model.addAttribute("categorias", this.categoriaService.listar());
-	        return "jpa/productos_add";
-	    }
+		if (result.hasErrors() || model.containsAttribute("errorSlug")) {
+			model.addAttribute("categorias", this.categoriaService.listar());
+			return "jpa/productos_add";
+		}
 
-	    productService.guardar(productos);
-	    return "redirect:/jpa/productos";
+		productService.guardar(productos);
+		return "redirect:/jpa/productos";
 	}
 
+	@GetMapping("/productos/editar/{id}")
+	public String productos_edit(@PathVariable("id") Integer id, Model model) {
+		ProductosModel productos = this.productService.editar(id);
+		model.addAttribute("productos", productos);
+		model.addAttribute("categorias", this.categoriaService.listar());
+	
+		return "jpa/productos_edit";
+	}
+
+	@PostMapping("/productos/editar/{id}")
+	public String productos_edit_post(@Valid @ModelAttribute("productos") ProductosModel productos,
+			BindingResult result, @PathVariable("id") int id, RedirectAttributes flash, Model model) {
+		System.out.println("HOLA");
+		if (result.hasErrors()) {
+			model.addAttribute("productos", productos);
+			return "jpa/productos_edit";
+		}
+
+		if (productos.getPrecio() < 0) {
+			result.rejectValue("precio", "error.precio", "El precio no puede ser negativo.");
+		}
+		
+		// Verificamos si la categoría existe antes de actualizarla
+		ProductosModel existente = this.productService.editar(id);
+		if (existente == null) {
+			flash.addFlashAttribute("error", "El producto no ha sido encontrado");
+			return "redirect:/jpa/categorias";
+		}
+
+		// Actualizamos los valores de la categoría existente
+		existente.setNombre(productos.getNombre());
+		existente.setSlug(Utils.getSlug(productos.getNombre()));
+		existente.setCategoriaId(productos.getCategoriaId());
+		existente.setDescripcion(productos.getDescripcion());
+		existente.setPrecio(productos.getPrecio());
+		existente.setFoto(productos.getFoto());
+		
+		
+		// Guardamos los cambios
+		productService.guardar(existente);
+
+		flash.addFlashAttribute("success", "Categoría actualizada correctamente.");
+		return "redirect:/jpa/productos";
+	}
+	
+	@GetMapping("/productos/delete/{id}")
+	public String productos_delete(@PathVariable("id") Integer id, Model model) {
+		try {
+			this.productService.eliminarRegistro(id);
+			return "redirect:/jpa/productos";
+		} catch (Exception e) {
+			System.out.println("HA FALLADO!!!");
+			return "redirect:/jpa/productos";
+		}
+	}
 
 }
