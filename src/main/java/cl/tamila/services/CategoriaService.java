@@ -52,4 +52,6 @@ public class CategoriaService {
 	public void eliminarRegistro(Integer id) {
 		this.repository.deleteById(id);
 	}
+	
+	//
 }

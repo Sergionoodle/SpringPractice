@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import cl.tamila.modelos.CategoriaModel;
@@ -42,9 +43,20 @@ public class PreciosService {
 		}
 		return null;
 	}
-	
-	//Metodo para eliminar, de ejecucion (void)
-		public void eliminarRegistro(Integer id) {
-			this.repository.deleteById(id);
-		}
+
+	// Metodo para eliminar, de ejecucion (void)
+	public void eliminarRegistro(Integer id) {
+		this.repository.deleteById(id);
+	}
+
+	// Listado de productos con un orden, con esto se listaría segun su id
+	public List<ProductosModel> listarPorNombre() {
+		return this.repository.findAll(Sort.by("nombre").descending());
+
+	}
+
+	// Listamos por categorias
+	public List<ProductosModel> listar_por_categorias(CategoriaModel categoria) {
+		return this.repository.findAllByCategoriaId(categoria);
+	}
 }
