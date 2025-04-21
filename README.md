@@ -29,13 +29,9 @@ Este repositorio contiene mis ejercicios y prácticas con **Spring Boot**, el po
 
 1️⃣ Clona el repositorio:
 ```bash
- git clone https://github.com/tuusuario/springboot-practicas.git
+ git clone https://github.com/Sergionoodle/SpringPractice.git
 ```
-
 2️⃣ Entra en la carpeta del proyecto:
-```bash
- cd springboot-practicas
-```
 
 3️⃣ Compila y ejecuta la aplicación:
 ```bash
