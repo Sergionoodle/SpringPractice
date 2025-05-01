@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +60,15 @@ public class PreciosService {
 	// Listamos por categorias
 	public List<ProductosModel> listar_por_categorias(CategoriaModel categoria) {
 		return this.repository.findAllByCategoriaId(categoria);
+	}
+	
+	public List<ProductosModel> listIn(List<CategoriaModel> categoria) {
+		return this.repository.findAllByCategoriaIdIn(categoria);
+		
+	}
+	
+	//Listamos para paginar (de spring.data)
+	public Page<ProductosModel> listarPaginado(Pageable pageanle) {
+		return this.repository.findAll(pageanle);
 	}
 }

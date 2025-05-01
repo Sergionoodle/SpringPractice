@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/front2 :: head(~{::title}, ~{::link})"></head>
+
+<body>
+	<div th:replace="layout/front2 :: container"></div>
+	<h1>Productos Where</h1>
+	<a th:href="@{/jpa/productos/add}" class="btn btn-primary mb-5">Create</a>
+	<a th:href="@{/jpa}" class="btn btn-primary mb-5">Home</a>
+	
+	<table class="table table-striped table-bordered">
+		<thead class="table-dark">
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Precio</th>
+				<th>Foto</th>
+				<th>Descripción</th>
+				<th>Categoria</th>
+				<th>Accion</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="producto : ${datos}">
+				<td th:text="${producto.id}"></td>
+				<td th:text="${producto.nombre}"></td>
+				<td th:text="${producto.precio}"></td>
+				<td><img th:src="@{${producto.foto}}" alt="Imagen del producto" width="200"></td>
+				<td th:text="${producto.descripcion}"></td>
+				<td><span th:text="${producto.categoriaId.nombre}"></span> - <a th:href="@{/jpa/productos/categorias/}+${producto.categoriaId.id}">Ir a</a></td>
+				<td>
+					<a th:href="@{/jpa/productos/editar/}+${producto.id}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/jpa/productos/delete/}+${producto.id}" class="btn btn-danger"
+						onclick="return confirm('¿Seguro que quieres eliminar?')">Eliminar</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- Esto es para la paginacion -->
+	<nav th:insert="layout/paginacion :: paginacion"></nav>
+	<!-- -->
+	<footer th:replace="layout/front2 :: footer"></footer>
+</body>
+
+</html>

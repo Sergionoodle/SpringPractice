@@ -1,8 +1,15 @@
 package cl.tamila.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.text.Utilities;
 
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
@@ -130,6 +137,38 @@ public class JPAController {
 		}
 		return "jpa/productos";
 		
+	}
+	
+	//Vamos a sacar solo los productos de la categoria que queramos
+	@GetMapping("/productos_where")
+	public String productos_where(Model model) {
+		//Creamos la lista de categorias que le queremos pasar
+		List<CategoriaModel> lista = new ArrayList<CategoriaModel>();
+		//Hacemos que listemos solo las categorias 3 y 4
+		lista.add(this.categoriaService.listarPorId(2));
+		lista.add(this.categoriaService.listarPorId(4));
+		//Llamamos al listIn y le pasamos la lista de categorias 
+		model.addAttribute("datos", this.productService.listIn(lista));
+		return "jpa/productos_where";
+	}
+	
+	//Productos con paginacion
+	@GetMapping("/productos_paginacion")
+	//Vamos a hacer una paginacion que se pase cada dos registros
+	//primero vamos al servicio
+	public String productos_paginacion(@RequestParam(value = "page", required = false) Integer page,  Model model) {
+		//Variable de la paginacion
+		Integer pagina = 2;
+		
+		//Ordenará los registros si quieres
+		Pageable pageable = PageRequest.of((page == null)? 0 : page, pagina,
+				Sort.by("id").ascending());
+		
+		//Una vez tenemos el numero de paginas que queremos agragar (ternario para evitar que cuando pasemos null, nos reviente)
+		//ahora le pasamos el objeto pageable a nuestra lista paginada, ahora toca hacer los botones para las paginas
+		model.addAttribute("datos", this.productService.listarPaginado(pageable));
+		model.addAttribute("paginacion", "jpa/productos_paginacion");
+		return "jpa/productos_paginacion";
 	}
 	
 	//Ahora vamos a crear el metodo que nos haga la busqueda

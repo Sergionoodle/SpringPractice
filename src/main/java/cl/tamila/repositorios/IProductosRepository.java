@@ -15,6 +15,9 @@ public interface IProductosRepository extends JpaRepository<ProductosModel, Inte
 	List<ProductosModel> findAllByCategoriaId(CategoriaModel categoria);
 	
 	public boolean existsBySlug(String slug);
+	
+	//Ahora le pasamos con un in
+	List<ProductosModel> findAllByCategoriaIdIn(List<CategoriaModel> categorias);
 
 	
 }
